@@ -1,0 +1,137 @@
+---
+title: "Amostragem e Inferência Estatística"
+subtitle: "Estrutura de um Teste de Hipóteses, Teste *z*"
+date: "Exercícios. `r format(Sys.time(), '%d de %B de %Y')`"
+author: "Fabio Cop Ferreira"
+output: 
+    pdf_document:
+#  html_document:
+    number_sections: true
+    toc: true
+    toc_depth: 2
+    theme: united
+    highlight: tango
+    template: quarterly-report.tex
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, echo = FALSE, warning = FALSE)
+library(tidyverse)
+library(gridExtra)
+# tam <- 4 # Usar qdo for gerar a figura para o Moodle
+tam = 15 # Usar qdo for gerar a figura do pdf
+```
+
+____
+
+*Obs.* Nos exercícios abaixo existem opções **negrito** entre parentesis. Escolha a correta. Ex.**(diferente de/maior que/menor que)**
+
+____
+
+1) As figuras abaixo mostram uma distribuição normal padrão. Em vermelho, estão as áreas de rejeição para testes estatísticos unilaterais e bilaterais. Identifique os valores críticos de $z$ para um nível de significância $\alpha = 0.05$.
+
+```{r, fig.align='center', fig.height=4, fig.width=12}
+pgeral <- ggplot(data.frame(x = c(-4,4)), aes(x = x)) +
+  stat_function(fun = dnorm) +
+  theme_classic()
+
+alpha <- 0.05
+zbilateral <- c(qnorm(c(alpha/2)), -qnorm(c(alpha/2)))
+zuniesq <- qnorm(alpha)
+zunidir <- -qnorm(alpha)
+zbilimits <- parse(text= paste("z[", c("cinf","csup"), "]", sep="") )
+
+p1 <- pgeral +
+  geom_area(stat = "function", fun = dnorm, fill = "#de143c", 
+            xlim = c(-4, zbilateral[1])) +
+  geom_area(stat = "function", fun = dnorm, fill = "#de143c", 
+            xlim = c(zbilateral[2], 4)) +
+  labs(x = "", y = "") +
+  scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = zbilateral, labels = zbilimits) +
+  theme(axis.text.x = element_text(size = tam),
+        axis.title.x = element_text(size = tam),
+        plot.title = element_text(hjust = 0.1, size = tam)) +
+  ggtitle('A')
+
+p2 <- pgeral +
+  geom_area(stat = "function", fun = dnorm, fill = "#de143c", 
+            xlim = c(-4, zuniesq)) +
+  labs(x = "", y = "") +
+  scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = zuniesq, labels = expression("z"['c'])) +
+  theme(axis.text.x = element_text(size = tam),
+        axis.title.x = element_text(size = tam),
+        plot.title = element_text(hjust = 0.1, size = tam)) +
+  ggtitle('B')
+  
+p3 <- pgeral +
+  geom_area(stat = "function", fun = dnorm, fill = "#de143c", 
+            xlim = c(zunidir,4)) +
+  labs(x = "", y = "") +
+  scale_y_continuous(breaks = NULL) +
+  scale_x_continuous(breaks = zunidir, labels = expression("z"['c'])) +
+  theme(axis.text.x = element_text(size = tam),
+        axis.title.x = element_text(size = tam),
+        plot.title = element_text(hjust = 0.1, size = tam)) +
+  ggtitle('C')
+
+pn <- grid.arrange(p1,p2,p3, nrow = 1)
+```
+
+```{r}
+#ggsave(filename = "fig/Area_rejeicao.png", pn, width = 3*0.9, height = 0.9)
+```
+
+Figura A: \(z_{cinf}\) = ________ (2 casas decimais).
+
+Figura A: \(z_{csup}\) = ________ (2 casas decimais).
+
+Figura B: \(z_{c}\) ________ (2 casas decimais).
+
+Figura C: \(z_{c}\) = ________ (2 casas decimais).
+
+_____
+
+2) Animais pecilotérmicos não têm mecanismos internos que regule a temperatura do seu corpo. Desta forma, ou o seu corpo está em equilíbrio com temperatura do ambiente onde está inserido, ou têm hábitos comportamentais que lhes permitem manter a temperatura em níveis aceitáveis para o seu organismo. Você estuda uma espécie de crustáceo e deseja testar se a temperatura corpórea destes animais esteja, em média, igual à temperatura ambiente. Para isto, você amostra 30 animais e os submete a uma temperatura ambiente de \(24,3^o\)C por 3 horas. Após este período você mede a temperatura de cada animal e obtém uma média de \(\overline{X} = 24,9^o\)C. Considere que a população de alturas é normalmente distribuída com desvio padrão \(\sigma = 1.5^o\)C.
+
+Assumindo um nível de significância \(\alpha = 0,05\), teste as hipóteses:
+
+\(H_0: \mu = 24,3^o\)C
+
+\(H_1: \mu \neq 24,3^o\)C
+
+
+a. O valor de p obtido neste teste foi de ____ (3 casas decimais).
+
+b. Portanto, com base no resultado acima você deve **(aceitar/rejeitar)** a hipótese nula de que \(H_0: \mu = 24,3^o\)C.
+
+_____
+
+3) O volume de cerveja nas garrafas de uma determinada marca pe normalmente distribuída com desvio padrão de 14,06 ml. Os rótulos indicam 600 ml por garrafa. O Instituto Nacional de Pesos e Medidas (INPM) seleciona aleatoriamente 50 garrafas desta marca, mede seu conteúdo e obtém uma média amostral igual a 596,25 ml .
+
+
+a. Considerando um nível de significância \(\alpha = 0,05\), aplique um teste *bilateral** e teste a hipótese de que a medida indicada no rótulo esteja errada.
+
+Resposta: O valor de p obtido neste teste foi de ______ (3 casas decimais), sugerindo que a medida indicada no rótulo estaria **(errada/correta)**.
+
+ 
+b. Considere agora um teste *unilateral** com \(\alpha = 0,05\), onde a hipótese alternativa seja: \(H_a: \mu < 600\) ml, e teste a hipótese de que a medida indicada no rótulo esteja errada.  
+
+Resposta: O valor de p obtido neste teste foi de _______ (3 casas decimais), sugerindo que a medida indicada no rótulo estaria **(errada/correta)**.
+
+_____
+
+4) Você ouve a seguinte informação de um antigo morador de Santos. "Atualmente chove menos do que chovia na década de 1940". Para verificar a validade desta informação, você fez uma busca por séries históricas de chuva na região e verifica que média anual neste período era de \(\mu = 1922\) mm de chuva, com desvio padrão \(\sigma = 125\) mm de chuva e distribuição normal. Em seguida você obteve as medidas de 10 estações metereológicas para o ano de 2020, que indicaram uma média de \(\overline{X} = 1850\) mm de chuva.
+ 
+a. Para verificar a validade da afirmação do morador, um teste estatístico formal deve ser definido como um teste **(bilateral/unilateral)** em que a hipótese alternativa é data por \(H_a: \mu_{atual}\) **(diferente de/maior que/menor que)** \(\mu_{histórico}\).
+ 
+b. De acordo com a hipótese estatística definida acima e as médias das séries de dados, você conduz um teste de comparação de médias, obtendo um valor de p igual a _______ (3 casas decimais), o que leva a conclusão que em 2020 **(não choveu menos/choveu menos)** que na década de 40.
+
+_____
+
+5) A vida média de um tipo de lâmpada tem distribuição normal com média \(\mu = 1600\) horas e desvio padrão de \(\sigma = 120\) horas. Após haver alteração em parte da matéria prima, você toma uma amostra de 100 lâmpadas e obtém uma média \(\overline{X} = 1578\) horas. Teste a hipótese de que a mudança na matéria prima não tenha alterado o tempo médio de vida das lâmpadas com nível de significância de \(\alpha = 0,05\).
+
+a. O valor de p obtido no teste de hipóteses foi igual a ______ (3 casas decimais) o que leva a concluir que atualmente **(houve/não houve)** mudança no tempo de vida médio das lâmpadas.
+
