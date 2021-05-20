@@ -1,0 +1,63 @@
+---
+title: "Amostragem e Inferência Estatística"
+subtitle: "Estimação intervalar, teste t de Student"
+date: "Exercícios. `r format(Sys.time(), '%d de %B de %Y')`"
+author: "Fabio Cop Ferreira"
+output: 
+    pdf_document:
+#  html_document:
+    number_sections: true
+    toc: true
+    toc_depth: 2
+    theme: united
+    highlight: tango
+    template: quarterly-report.tex
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, echo = FALSE, warning = FALSE)
+```
+
+___
+
+Nos exercícios abaixo, escreva explicitamente quais são as hipóteses ($H_0$ e $H_a$) em teste e qual o nível de significância utilizado. Caso o nome das colunas seja muito longo, é interessante renomeá-los mantendo nomes curtos. Por exemplo: Uma coluna denominada ´´´Comprimento_carapaca´´´ poderia ser renomeada para ´´´C_car´´´.
+
+___
+
+1. Importe o conjunto de dados ´´´Remocao_frutos.txt´´´. A tabela mostra o resultado da remoção de ervas daninhas no plantio de tomate. Uma área foi subdividida em parcelas de tamanhos iguais. Em algumas parcelas (**sem remoção**) foi permitido que plantas daninhas crescessem livremente associadas aos tomateiros, enquanto em outras (**remoção**) as plantas eram sistematicamente removidas, de modo que não fosse permitido seu estabelecimento. Após um determinado tempo, um único fruto foi escolhido aleatoriamente do pé e pesado (gramas). Em seguida, a planta foi removida para obtenção do peso seco das raízes (em gramas).
+
+a. Calcule os intervalos de confiança a 95% para o peso dos frutos do tratamento sem remoção e preencha os espaços abaixo:
+
+$\overline{y}$: ______
+
+$s_{\overline{y}}$: ______
+
+Graus de liberdade: ____
+
+Valor de $t_c$ crítico a 95%: ____
+
+$IC_{95\%}$: _____
+
+b. Faça um boxplot para descrever o peso dos frutos em função dos tratamentos e outro semelhante para o peso da raiz.
+
+c. Teste a hipótese de que o peso médio dos frutos no tratamento com remoção é maior que no tratamento sem remoção. Escreva quem são ($H_0$ e $H_a$) e quais foram os valores de tc crítico a 95% e o valor de tobs observado.
+
+d. Teste a hipótese de que o peso seco das raízes são diferentes entre os tratamentos.
+
+
+2. O arquivo "Crustaceos.txt" mostra as medidas de comprimento e peso da carapaça de caranguejos machos e fêmeas amostrados em praias impactadas (alta densidade urbana) e não impactadas (Unidades de Conservação).
+
+a. Calcule os valores médios, variância e desvio padrão para o comprimento da carapaça e peso da carapaça em função do fator Sexo. Faça o mesmo para cada categoria de Ambiente (Natural / Impactado).
+
+b. Repita o mesmo para cada sub grupo de Sexo E Ambiente.
+
+* Veja o help das função tapply e aggregate para responder aos itens a) e b).
+
+c. Faça um histograma do comprimento da carapaça. Em seguida, faça um boxplot do comprimento da carapaça em função do Sexo.
+
+d. Faça um único boxplot que combine os valores de comprimento da carapaça para cada Sexo em cada tipo de Ambiente. 
+
+e. Teste a hipótese de que as variâncias no peso da carapaça é homogênea entre os sexos.
+
+f. Teste a hipótese de que as variâncias no peso médio da carapaça é igual entre os sexos.
