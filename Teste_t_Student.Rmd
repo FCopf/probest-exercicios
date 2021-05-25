@@ -42,7 +42,7 @@ $IC_{95\%}$: _____________
 
 b.  Faça um boxplot para descrever o peso dos frutos em função dos tratamentos e outro semelhante para o peso da raiz.
 
-c.  Considerando um nível de significância $\alpha=  0,05$, teste a hipótese de que o peso médio dos frutos no tratamento com remoção **é maior** que no tratamento sem remoção. Escreva quais são as hipóteses estatísticas($H_0$ e $H_a$), qual foi o valor de $t_crítico$, $t_calculado$ e o valor de $p$ associado à sua hipótese estatística.
+c.  Considerando um nível de significância $\alpha=  0,05$, teste a hipótese de que o peso médio dos frutos no tratamento com remoção **é maior** que no tratamento sem remoção. Escreva quais são as hipóteses estatísticas($H_0$ e $H_a$), qual foi o valor de $t_{calculado}$ e o valor de $p$ associado à sua hipótese estatística.
 
 d.  Teste a hipótese de que o peso seco das raízes são diferentes entre os tratamentos.
 
