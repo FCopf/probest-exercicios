@@ -4,15 +4,7 @@ subtitle: "O teste t de *Student*"
 author: "Fabio Cop (fabiocopf@gmail.com)"
 institute: "Instituto do Mar - UNIFESP"
 date: "Última atualização em `r format(Sys.time(), '%d de %B de %Y')`"
-output: 
-    pdf_document:
-#  html_document:
-    number_sections: true
-    toc: true
-    toc_depth: 2
-    theme: united
-    highlight: tango
-    template: quarterly-report.tex
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -21,7 +13,13 @@ knitr::opts_chunk$set(message = FALSE, echo = FALSE, warning = FALSE)
 
 ------------------------------------------------------------------------
 
-Nos exercícios abaixo, escreva explicitamente quais são as hipóteses ($H_0$ e $H_a$) em teste e qual o nível de significância utilizado. Caso o nome das colunas seja muito longo, é interessante renomeá-los mantendo nomes curtos. Por exemplo: Uma coluna denominada `Comprimento_carapaca` poderia ser renomeada para `C_car`.
+Nos exercícios abaixo, escreva explicitamente quais são as hipóteses ($H_0$ e $H_a$) em teste o qual o nível de significância $\alpha$ escolhido. Não de esqueça de verificar os pressupostos dos modelos.
+
+As tabelas apresentadas no documento devem ser criadas por você no formato apropriado. Outros exercícios pedem para que você importe um conjunto de dados que pode ser acessado em: 
+
+[**https://github.com/FCopf/probest-exercicios/tree/master/datasets**](https://github.com/FCopf/probest-exercicios/tree/master/datasets).
+
+Caso o nome das colunas seja muito longo, é interessante renomeá-los mantendo nomes curtos. É interessante também evitar o uso de *espaços*, *acentos* e *cedilhas* nos nomes das colunas. 
 
 ------------------------------------------------------------------------
 

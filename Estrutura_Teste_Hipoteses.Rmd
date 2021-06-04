@@ -1,17 +1,10 @@
 ---
 title: "Amostragem e Inferência Estatística"
 subtitle: "Estrutura de um Teste de Hipóteses, Teste *z*"
-date: "Exercícios. `r format(Sys.time(), '%d de %B de %Y')`"
-author: "Fabio Cop Ferreira"
-output: 
-    pdf_document:
-#  html_document:
-    number_sections: true
-    toc: true
-    toc_depth: 2
-    theme: united
-    highlight: tango
-    template: quarterly-report.tex
+author: "Fabio Cop (fabiocopf@gmail.com)"
+institute: "Instituto do Mar - UNIFESP"
+date: "Última atualização em `r format(Sys.time(), '%d de %B de %Y')`"
+output: pdf_document
 
 ---
 
