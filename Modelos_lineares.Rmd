@@ -135,19 +135,94 @@ a. Qual foi sua conclusão? Explique.
 
 b. Quais foram os coeficientes da regressão. Interprete o valor numérico associado ao coeficiente de inclinação da reta.
 
-d. Interprete o valor do coeficiente de determinação $R^2$.
+c. Interprete o valor do coeficiente de determinação $R^2$.
 
-e. Teste os pressupostos do modelo e responda: a regressão linear foi um modelo apropriado?
+d. Teste os pressupostos do modelo e responda: a regressão linear foi um modelo apropriado?
 
-2. Importe o arquivo `Pressao_pulso.csv`. Faça um gráfico de dispersão entre pressão diastólica e idade. Utilize um modelo de regressão linear para testar a hipótese de que a taxa de pulsação varia em função da idade. Responda:
+2. Importe o arquivo `Mananciais_resumido.csv` e faça um gráfico de dispersão entre *Volume_reservatorio* (variável resposta - $Y$) e *Chuva* (variável preditora - $X$).
 
-a. Qual foi sua conclusão? Explique.
+2.1. Para o **Sistema Guarapiranga** responda.
 
-b. Quais foram os coeficientes da regressão. Interprete o valor numérico associado ao coeficiente de inclinação da reta.
+a. Visualmente (isto é, sem conduzir um teste de hipóteses formal), o gráfico de dispersão sugere uma relação entre $Y$ e $X$ do tipo:
+    - Negativa;
+    - Nula;
+    - Positiva.
 
-d. Interprete o valor do coeficiente de determinação $R^2$.
+b. Ajuste um modelo de regressão linear e calcule os coeficientes estimados da regressão $\hat{\beta_0}$ e $\hat{\beta_1}$ e a variância do resíduo $s^2$.
 
-e. Teste os pressupostos do modelo e responda: a regressão linear foi um modelo apropriado?
+c. Com nível de significância $\alpha = 0,05$, teste as hipóteses:
+
+$H_0: \beta_1 = 0$
+
+$H_a: \beta_1 \ne 0$
+
+d. Para uma quantidade de Chuva de $110$ $mm$ anuais, calcule os intervalos de *confiância* e de *predição* para o volume do reservatório.
+
+2.2. Para o **Sistema Rio Grande** responda.
+
+a. O gráfico de dispersão sugere uma relação entre $Y$ e $X$ do tipo:
+    - Negativa;
+    - Nula;
+    - Positiva.
+
+b. Ajuste uma regressão linear e calcule os coeficientes estimados da regressão $\hat{\beta_0}$ e $\hat{\beta_1}$ e a variância do resíduo $s^2$.
+
+c. Com nível de significância $\alpha = 0,05$, teste as hipóteses:
+
+$H_0: \beta_1 = 0$
+
+$H_a: \beta_1 \ne 0$
+
+d. Para uma quantidade de Chuva de $110$ $mm$ anuais, calcule os intervalos de *confiância* e de *predição* para o volume do reservatório.
+
+
+e. Calcule o coeficiente de determinação $R^2$.
+
+```{r,eval=FALSE}
+ma <- read_csv2("datasets/Mananciais_resumido.csv")
+
+ggplot(ma, aes(x = Chuva, y = Volume_reservatorio, color = Sistema))  +
+  geom_point(size = 4) +
+  geom_smooth(method = 'lm', se = F) +
+  scale_color_manual(values=c("red", "darkblue")) +
+  scale_x_continuous(name = "Chuva média anual", breaks = seq(30, 200, by = 10)) +
+  scale_y_continuous(name = "Volume do reservatório", breaks = seq(30, 100, by = 10)) +
+  theme_classic(base_size = 15)
+
+
+summary(lm(Volume_reservatorio ~ Chuva, data = ma, subset = ma$Sistema == 'Guarapiranga'))
+summary(lm(Volume_reservatorio ~ Chuva, data = ma, subset = ma$Sistema == 'RioGrande'))
+
+g <- ma[ma$Sistema == 'RioGrande',]
+mg <- lm(Volume_reservatorio ~ Chuva, data = g)
+g$fit = predict.lm(mg)
+g$SQres <- (g$Volume_reservatorio - g$fit)^2
+g$SQreg <- (g$fit - mean(g$Volume_reservatorio))^2
+
+SQRes <- sum(g$SQres)
+QMRes <- SQRes/(nrow(g)-2)
+
+SQReg <- sum(g$SQreg)
+
+QMReg <- SQReg/1
+
+Fst <- QMReg/QMRes
+R2 <- SQReg/(SQReg + SQRes)
+
+s2 <- SQRes/(nrow(g) - 2)
+
+anova(mg)
+
+predict.lm(mg, se.fit = T, newdata = data.frame(Chuva = 110),  interval = "confidence")
+predict.lm(mg, se.fit = T, newdata = data.frame(Chuva = 110),  interval = "prediction")
+
+plot(fit ~ Chuva, data = g)
+abline(mg)
+points(y = g$Volume_reservatorio, x =  g$Chuva, col = 2)
+
+```
+
+
 
 3. Importe o conjunto de dados `galapagos_alr3.csv`. Faça um gráfico de dispersão entre riqueza de espécies ($NS$) e área das ilhas ($Area$). Note que a relação é não-linear. Em geral, a relação riqueza de espécies $vs$ área pode ser descrita por:
 
